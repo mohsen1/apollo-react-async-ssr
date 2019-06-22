@@ -1,6 +1,8 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "outDir": "dist"
-    }
+  "compilerOptions": {
+    "jsx": "react",
+    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "dist"
+  }
 }

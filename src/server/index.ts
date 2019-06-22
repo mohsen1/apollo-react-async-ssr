@@ -1,5 +1,19 @@
-import apolloServer from "./apollo-server";
+import express from "express";
 
-apolloServer.listen(3000).then(() => {
+import apolloServer from "./apollo-server";
+import devMiddleware from "./devMiddleware";
+import render from "./render";
+
+const app = express();
+
+apolloServer.applyMiddleware({ app, path: "/api" });
+
+if (process.env.NODE_ENV === "development") {
+  app.use(devMiddleware);
+} //
+
+app.get("*", render);
+
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server has started");
 });

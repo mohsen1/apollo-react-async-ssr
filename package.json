@@ -5,26 +5,43 @@
   "author": "Mohsen Azimi <me@azimi.me>",
   "license": "MIT",
   "scripts": {
-    "start": "concurrently npm:watch-typescript npm:start-server",
+    "start": "NODE_ENV=development concurrently npm:watch-typescript npm:start-server",
     "watch-typescript": "tsc --watch --skipLibCheck --preserveWatchOutput",
-    "start-server": "nodemon --watch dist/server --exec 'node --no-warnings dist/server/index.js'"
+    "start-server": "nodemon --watch dist --ignore dist/client --exec 'node --no-warnings dist/server/index.js'",
+    "prebuild": "rimraf dist",
+    "build": "webpack"
   },
   "dependencies": {
+    "@babel/core": "^7.4.5",
     "@types/node": "^12.0.10",
     "@types/react": "^16.8.22",
     "@types/react-dom": "^16.8.4",
+    "@types/react-loadable": "^5.5.1",
+    "@types/react-router": "^5.0.2",
     "@types/webpack": "^4.4.33",
+    "@types/webpack-dev-middleware": "^2.0.2",
     "apollo-cache-inmemory": "^1.6.2",
     "apollo-client": "^2.6.3",
     "apollo-server": "^2.6.4",
+    "apollo-server-express": "^2.6.4",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-named-asset-import": "^0.3.2",
+    "babel-preset-react-app": "^9.0.0",
     "concurrently": "^4.1.0",
+    "express": "^4.17.1",
+    "file-loader": "^4.0.0",
     "graphql": "^14.3.1",
     "nodemon": "^1.19.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",
+    "react-loadable": "^5.5.0",
+    "react-router": "^5.0.1",
+    "rimraf": "^2.6.3",
     "typescript": "^3.5.2",
     "webpack": "^4.35.0",
-    "webpack-cli": "^3.3.4"
+    "webpack-cli": "^3.3.4",
+    "webpack-dev-middleware": "^3.7.0",
+    "webpack-node-externals": "^1.7.2"
   }
 }

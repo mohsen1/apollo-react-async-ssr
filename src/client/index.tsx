@@ -1,5 +1,8 @@
 import React from "react";
+import ReactDOM from "react-dom";
 
-const App: React.FC = () => <div>Hi</div>;
+import App from "../components/App";
 
-export default App;
+const root = document.getElementById("root");
+
+ReactDOM.hydrate(<App />, root);

@@ -6,6 +6,8 @@ import render from "./render";
 
 const app = express();
 
+app.use(express.static("../../dist/client"));
+
 apolloServer.applyMiddleware({ app, path: "/api" });
 
 if (process.env.NODE_ENV === "development") {

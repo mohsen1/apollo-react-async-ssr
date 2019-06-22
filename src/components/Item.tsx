@@ -1,5 +1,12 @@
 import React from "react";
+import styled from "styled-components";
 
-const Item: React.FC<{ item: number }> = ({ item }) => <p>Item {item + 1}</p>;
+const Row = styled.p`
+  background-color: gray;
+`;
+
+const Item: React.FC<{ item: number }> = ({ item }) => (
+  <Row>Item {item + 1}</Row>
+);
 
 export default Item;

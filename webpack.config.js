@@ -2,8 +2,8 @@
 const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
+const { ReactLoadablePlugin } = require("react-loadable/webpack");
 
-process.env.NODE_ENV = process.env.NODE_ENV || "development";
 const isEnvProduction = process.env.NODE_ENV === "production";
 
 /** @type {import("webpack").Rule} */
@@ -31,7 +31,9 @@ const babelRule = {
             svg: { ReactComponent: "@svgr/webpack?-svgo,+ref![path]" }
           }
         }
-      ]
+      ],
+      require.resolve("babel-plugin-styled-components"),
+      require.resolve("react-loadable/babel")
     ],
     presets: [["react-app", { flow: false, typescript: true }]],
     sourceType: "unambiguous"
@@ -77,8 +79,10 @@ const serverConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      "process.env.WEBPACK_TARGET": JSON.stringify("node"),
-      "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+      "process.env.WEBPACK_TARGET": JSON.stringify("node")
+    }),
+    new ReactLoadablePlugin({
+      filename: path.resolve("./dist/client/react-loadable.json")
     })
   ]
 };
@@ -92,7 +96,8 @@ const clientConfig = {
   resolve,
   entry: path.resolve(__dirname, "./src/client/index.tsx"),
   output: {
-    path: path.resolve(__dirname, "./dist/client")
+    path: path.resolve(__dirname, "./dist/client"),
+    publicPath: "/dist/client"
   },
   module: {
     rules: [mjsRule, { oneOf: [babelRule, fileRule] }]

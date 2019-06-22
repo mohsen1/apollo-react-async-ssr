@@ -1,0 +1,13 @@
+{
+  "name": "empty-project",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "author": "Mohsen Azimi <me@azimi.me>",
+  "license": "MIT",
+  "scripts": {
+    "prepublish": "tsc"
+  },
+  "dependencies": {
+    "typescript": "^2.4.2"
+  }
+}

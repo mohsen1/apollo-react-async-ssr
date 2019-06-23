@@ -3,6 +3,9 @@
     "jsx": "react",
     "module": "esnext",
     "esModuleInterop": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "lib": ["dom", "es2017"],
+
+    "forceConsistentCasingInFileNames": true
   }
 }

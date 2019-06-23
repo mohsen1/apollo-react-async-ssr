@@ -8,7 +8,8 @@ clientConfig.stats = "errors-only";
 const compiler = webpack(clientConfig);
 const devMiddleware = webpackDevMiddleware(compiler, {
   logLevel: "error",
-  publicPath: "/"
+  publicPath: clientConfig.output.publicPath,
+  serverSideRender: true
 });
 
 export default devMiddleware;

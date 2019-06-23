@@ -3,8 +3,16 @@ const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
 const { ReactLoadablePlugin } = require("react-loadable/webpack");
+const mkdirp = require("mkdirp");
+const ManifestPlugin = require("webpack-manifest-plugin");
+
+// ReactLoadablePlugin can't make deep directories
+mkdirp.sync("./dist/client");
 
 const isEnvProduction = process.env.NODE_ENV === "production";
+
+/** publicPath across all configs. */
+const publicPath = "/dist/client/";
 
 /** @type {import("webpack").Rule} */
 const mjsRule = {
@@ -49,9 +57,17 @@ const fileRule = {
   }
 };
 
+/** @type {import("webpack").Configuration['optimization']} */
+const clientOptimization = {
+  splitChunks: {
+    chunks: "all",
+    name: true
+  }
+};
+
 /** @type {import("webpack").Resolve} */
 const resolve = {
-  modules: ["node_modules", "src"],
+  modules: ["node_modules", path.resolve("src")],
   extensions: [".js", ".mjs", ".ts", ".jsx", ".tsx", ".css", ".gql", ".graphql"]
 };
 
@@ -66,7 +82,12 @@ const serverConfig = {
   devtool: "source-map",
   stats,
   resolve,
-  externals: [nodeExternals()],
+  optimization: { minimize: false },
+  externals: [
+    /react-loadable\.json$/,
+    /webpack-manifest\.json$/,
+    nodeExternals()
+  ],
   entry: path.resolve(__dirname, "./src/server/index.ts"),
   output: {
     path: path.resolve(__dirname, "./dist/server"),
@@ -75,14 +96,11 @@ const serverConfig = {
     libraryTarget: "commonjs2"
   },
   module: {
-    rules: [mjsRule, { oneOf: [babelRule, fileRule] }]
+    rules: [mjsRule, { oneOf: [babelRule] }]
   },
   plugins: [
     new webpack.DefinePlugin({
       "process.env.WEBPACK_TARGET": JSON.stringify("node")
-    }),
-    new ReactLoadablePlugin({
-      filename: path.resolve("./dist/client/react-loadable.json")
     })
   ]
 };
@@ -94,10 +112,12 @@ const clientConfig = {
   target: "web",
   devtool: "source-map",
   resolve,
-  entry: path.resolve(__dirname, "./src/client/index.tsx"),
+  optimization: clientOptimization,
+  entry: "./src/client/index.tsx",
   output: {
     path: path.resolve(__dirname, "./dist/client"),
-    publicPath: "/dist/client"
+    publicPath,
+    filename: "[name]-[chunkhash:6].js"
   },
   module: {
     rules: [mjsRule, { oneOf: [babelRule, fileRule] }]
@@ -106,6 +126,13 @@ const clientConfig = {
     new webpack.DefinePlugin({
       "process.env.WEBPACK_TARGET": JSON.stringify("web"),
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
+    }),
+    new ReactLoadablePlugin({
+      filename: "./dist/client/react-loadable.json"
+    }),
+    new ManifestPlugin({
+      fileName: "webpack-manifest.json",
+      publicPath
     })
   ]
 };

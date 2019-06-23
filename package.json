@@ -9,7 +9,10 @@
     "watch-server": "webpack --watch --config-index=1",
     "start-server": "nodemon --watch dist --ignore dist/client --exec 'node --no-warnings dist/server/index.js'",
     "prebuild": "rimraf dist",
-    "build": "NODE_ENV=development webpack"
+    "build": "NODE_ENV=development webpack",
+    "prebuild:prod": "rimraf dist",
+    "build:prod": "NODE_ENV=production webpack",
+    "start:prod": "NODE_ENV=production node --no-warnings ./dist/server/index.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",
@@ -35,6 +38,7 @@
     "express": "^4.17.1",
     "file-loader": "^4.0.0",
     "graphql": "^14.3.1",
+    "mkdirp": "^0.5.1",
     "nodemon": "^1.19.1",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",
@@ -47,6 +51,10 @@
     "webpack": "^4.35.0",
     "webpack-cli": "^3.3.4",
     "webpack-dev-middleware": "^3.7.0",
+    "webpack-manifest-plugin": "^2.0.4",
     "webpack-node-externals": "^1.7.2"
+  },
+  "resolutions": {
+    "chokidar": "3"
   }
 }

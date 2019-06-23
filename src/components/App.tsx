@@ -1,16 +1,16 @@
 import React from "react";
 
 import List from "./List";
-// import GhostscriptTiger from "./GhostscriptTiger";
 import Help from "./HelpAsync";
+import Hello from "./Hello";
 
 const App: React.FC = () => (
   <>
+    <h1>GraphQL query component</h1>
+    <Hello />
+    <h1>Async component</h1>
     <Help />
-    <h1>TODO List</h1>
     <List />
-    {/* <h1>SVG</h1> */}
-    {/* <GhostscriptTiger /> */}
   </>
 );
 

@@ -1,4 +1,4 @@
-import { ApolloServer, gql } from "apollo-server-express";
+import { ApolloServer, gql, makeExecutableSchema } from "apollo-server-express";
 
 // The GraphQL schema
 const typeDefs = gql`
@@ -14,6 +14,8 @@ const resolvers = {
     hello: () => "world"
   }
 };
+
+export const schema = makeExecutableSchema({ typeDefs });
 
 const server = new ApolloServer({
   typeDefs,

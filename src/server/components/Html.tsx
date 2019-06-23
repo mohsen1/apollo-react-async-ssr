@@ -1,21 +1,31 @@
 import React from "react";
 import { Bundle } from "react-loadable/webpack";
+import { HelmetData } from "react-helmet";
 
 const Html: React.FC<{
-  styleTags: string;
+  styleTags: Array<React.ReactElement<{}>>;
   initialState: object;
   webpackManifest: object;
   bundles: Bundle[];
   appContents: string;
-}> = ({ styleTags, initialState, webpackManifest, bundles, appContents }) => {
+  helmet: HelmetData;
+}> = ({
+  styleTags,
+  initialState,
+  webpackManifest,
+  bundles,
+  appContents,
+  helmet
+}) => {
   return (
     <html>
-      <head
-        dangerouslySetInnerHTML={{
-          __html: styleTags
-        }}
-      />
-      <body>
+      <head {...helmet.htmlAttributes.toComponent()}>
+        {helmet.title.toComponent()}
+        {helmet.meta.toComponent()}
+        {helmet.link.toComponent()}
+        {styleTags}
+      </head>
+      <body {...helmet.bodyAttributes.toComponent()}>
         <div
           id="root"
           dangerouslySetInnerHTML={{
@@ -33,7 +43,7 @@ const Html: React.FC<{
           .filter(Boolean)
           .filter(({ file }) => !file.endsWith(".map"))
           .map(({ publicPath }) => (
-            <script src={publicPath} />
+            <script src={publicPath} key={publicPath} />
           ))}
       </body>
     </html>

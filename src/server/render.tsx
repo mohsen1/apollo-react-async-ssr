@@ -5,6 +5,7 @@ import { ServerStyleSheet } from "styled-components";
 import Loadable from "react-loadable";
 import { getDataFromTree } from "react-apollo";
 import { getBundles } from "react-loadable/webpack";
+import Helmet from "react-helmet";
 
 import Html from "./components/Html";
 import ServerAppContents from "./components/ServerAppContents";
@@ -35,7 +36,8 @@ const render: express.Handler = async (req, res, next) => {
       sheet.collectStyles(<Contents />)
     );
     const initialState = apolloClient.extract();
-    const styleTags = sheet.getStyleTags();
+    const styleTags = sheet.getStyleElement();
+    const helmet = Helmet.renderStatic();
     const bundles = getBundles(loadableStats, modules);
 
     const html = ReactDOMServer.renderToString(
@@ -45,7 +47,8 @@ const render: express.Handler = async (req, res, next) => {
           initialState,
           webpackManifest,
           bundles,
-          appContents
+          appContents,
+          helmet
         }}
       />
     );

@@ -33,17 +33,18 @@ const Html: React.FC<{
           }}
         />
         <script
+          charSet="utf-8"
           dangerouslySetInnerHTML={{
             __html: `window.__APOLLO_STATE__=${JSON.stringify(initialState)}`
           }}
         />
-        <script src={webpackManifest["vendors~main.js"]} />
-        <script src={webpackManifest["main.js"]} />
+        <script charSet="utf-8" src={webpackManifest["vendors~main.js"]} />
+        <script charSet="utf-8" src={webpackManifest["main.js"]} />
         {bundles
           .filter(Boolean)
           .filter(({ file }) => !file.endsWith(".map"))
           .map(({ publicPath }) => (
-            <script src={publicPath} key={publicPath} />
+            <script charSet="utf-8" src={publicPath} key={publicPath} />
           ))}
       </body>
     </html>

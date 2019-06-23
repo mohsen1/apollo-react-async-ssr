@@ -1,6 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Loadable from "react-loadable";
+import { Router } from "react-router-dom";
+import { createBrowserHistory } from "history";
 
 import App from "../components/App";
 import ClientAppContainer from "./ClientAppContainer";
@@ -12,7 +14,9 @@ const render = async () => {
 
   ReactDOM.hydrate(
     <ClientAppContainer>
-      <App />
+      <Router history={createBrowserHistory()}>
+        <App />
+      </Router>
     </ClientAppContainer>,
     root
   );

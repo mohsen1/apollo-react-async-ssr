@@ -6,11 +6,14 @@ const Text = styled.p`
 `;
 
 const Item: React.FC = () => (
-  <Text>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius animi tempore
-    aliquid non placeat sapiente, velit quas sequi sint ipsum quam voluptate
-    possimus, nulla ea asperiores eveniet deserunt odio libero!
-  </Text>
+  <>
+    <h2>This component is loaded lazily</h2>
+    <Text>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius animi
+      tempore aliquid non placeat sapiente, velit quas sequi sint ipsum quam
+      voluptate possimus, nulla ea asperiores eveniet deserunt odio libero!
+    </Text>
+  </>
 );
 
 export default Item;

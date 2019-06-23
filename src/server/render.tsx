@@ -6,6 +6,7 @@ import Loadable from "react-loadable";
 import { getDataFromTree } from "react-apollo";
 import { getBundles } from "react-loadable/webpack";
 import Helmet from "react-helmet";
+import { StaticContext } from "react-router";
 
 import Html from "./components/Html";
 import ServerAppContents from "./components/ServerAppContents";
@@ -21,12 +22,14 @@ const render: express.Handler = async (req, res, next) => {
     const sheet = new ServerStyleSheet();
     const modules = [];
     const apolloClient = getApolloClient();
+    const routerContext: StaticContext = {};
 
     const Contents = () => (
       <ServerAppContents
         req={req}
         client={apolloClient}
         reportModules={module => modules.push(module)}
+        routerContext={routerContext}
       />
     );
 
@@ -53,10 +56,13 @@ const render: express.Handler = async (req, res, next) => {
       />
     );
 
-    res
-      .status(200)
-      .header("content-type", "text/html")
-      .send(`<!doctype html>${html}`);
+    if (routerContext.statusCode) {
+      res.status(routerContext.statusCode);
+    } else {
+      res.status(200);
+    }
+
+    res.header("content-type", "text/html").send(`<!doctype html>${html}`);
   } catch (e) {
     next(e);
   }

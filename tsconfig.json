@@ -2,6 +2,7 @@
   "compilerOptions": {
     "jsx": "react",
     "module": "esnext",
+    "moduleResolution": "node",
     "esModuleInterop": true,
     "outDir": "dist",
     "lib": ["dom", "es2017"],

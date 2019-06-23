@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { Route, Router, Switch } from "react-router-dom";
 
-import Help from "./HelpAsync";
+import TimeAsync from "./TimeAsync";
 import Hello from "./Hello";
 import NotFound from "./NotFound";
 import Home from "./Home";
@@ -14,7 +14,7 @@ const App: React.FC = () => (
     </Helmet>
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/async" exact component={Help} />
+      <Route path="/async" exact component={TimeAsync} />
       <Route path="/with-data" exact component={Hello} />
       <Route component={NotFound} />
     </Switch>

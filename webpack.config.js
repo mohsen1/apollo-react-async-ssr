@@ -101,9 +101,6 @@ const serverConfig = {
   plugins: [
     new webpack.DefinePlugin({
       "process.env.WEBPACK_TARGET": JSON.stringify("node")
-    }),
-    new webpack.DefinePlugin({
-      "process.env.WEBPACK_TARGET": JSON.stringify("node")
     })
   ]
 };
@@ -136,9 +133,6 @@ const clientConfig = {
     new ManifestPlugin({
       fileName: "webpack-manifest.json",
       publicPath
-    }),
-    new webpack.DefinePlugin({
-      "process.env.WEBPACK_TARGET": JSON.stringify("browser")
     })
   ]
 };

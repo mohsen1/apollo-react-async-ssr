@@ -7,7 +7,8 @@ const apolloClient = new ApolloClient({
   link: createHttpLink({
     uri: "/api"
   }),
-  cache: new InMemoryCache()
+  ssrForceFetchDelay: 100,
+  cache: new InMemoryCache().restore(window.__APOLLO_STATE__)
 });
 
 export default apolloClient;

@@ -1,12 +1,14 @@
 import React from "react";
 import express from "express";
 import ReactDOMServer from "react-dom/server";
-import cheerio from "cheerio";
 import { ServerStyleSheet } from "styled-components";
 import Loadable from "react-loadable";
+import { getDataFromTree } from "react-apollo";
 import { getBundles } from "react-loadable/webpack";
 
 import Html from "./components/Html";
+import ServerAppContents from "./components/ServerAppContents";
+import getApolloClient from "./getApolloClient";
 
 /**
  * @todo Make this shit work
@@ -17,36 +19,41 @@ const render: express.Handler = async (req, res, next) => {
     const webpackManifest = require("../../dist/client/webpack-manifest.json");
     const sheet = new ServerStyleSheet();
     const modules = [];
+    const apolloClient = getApolloClient();
+
+    const Contents = () => (
+      <ServerAppContents
+        req={req}
+        client={apolloClient}
+        reportModules={module => modules.push(module)}
+      />
+    );
 
     await Loadable.preloadAll();
-    const html = ReactDOMServer.renderToString(
-      sheet.collectStyles(
-        <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-          <Html req={req} />
-        </Loadable.Capture>
-      )
+    await getDataFromTree(Contents);
+    const appContents = ReactDOMServer.renderToString(
+      sheet.collectStyles(<Contents />)
     );
-    const $ = cheerio.load(`<!doctype html>${html}`);
+    const initialState = apolloClient.extract();
     const styleTags = sheet.getStyleTags();
     const bundles = getBundles(loadableStats, modules);
 
-    $("head").append(styleTags);
-    $("body").append(
-      `<script src="${webpackManifest["vendors~main.js"]}"></script>`
-    );
-    $("body").append(`<script src="${webpackManifest["main.js"]}"></script>`);
-    $("body").append(
-      bundles
-        .filter(Boolean)
-        .filter(({ file }) => !file.endsWith(".map"))
-        .map(({ publicPath }) => `<script src="${publicPath}"></script>`)
-        .join("")
+    const html = ReactDOMServer.renderToString(
+      <Html
+        {...{
+          styleTags,
+          initialState,
+          webpackManifest,
+          bundles,
+          appContents
+        }}
+      />
     );
 
     res
       .status(200)
       .header("content-type", "text/html")
-      .send($.html());
+      .send(`<!doctype html>${html}`);
   } catch (e) {
     next(e);
   }

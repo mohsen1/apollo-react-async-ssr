@@ -1,20 +1,42 @@
 import React from "react";
-import express from "express";
+import { Bundle } from "react-loadable/webpack";
 
-import Head from "./Head";
-import Body from "./Body";
-import { ApolloProvider } from "react-apollo";
-
-import getApolloClient from "../getApolloClient";
-
-const Html: React.FC<{ req: express.Request }> = ({ req }) => {
+const Html: React.FC<{
+  styleTags: string;
+  initialState: object;
+  webpackManifest: object;
+  bundles: Bundle[];
+  appContents: string;
+}> = ({ styleTags, initialState, webpackManifest, bundles, appContents }) => {
   return (
-    <ApolloProvider client={getApolloClient()}>
-      <html>
-        <Head />
-        <Body />
-      </html>
-    </ApolloProvider>
+    <html>
+      <head
+        dangerouslySetInnerHTML={{
+          __html: styleTags
+        }}
+      />
+      <body>
+        <div
+          id="root"
+          dangerouslySetInnerHTML={{
+            __html: appContents
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.__APOLLO_STATE__=${JSON.stringify(initialState)}`
+          }}
+        />
+        <script src={webpackManifest["vendors~main.js"]} />
+        <script src={webpackManifest["main.js"]} />
+        {bundles
+          .filter(Boolean)
+          .filter(({ file }) => !file.endsWith(".map"))
+          .map(({ publicPath }) => (
+            <script src={publicPath} />
+          ))}
+      </body>
+    </html>
   );
 };
 

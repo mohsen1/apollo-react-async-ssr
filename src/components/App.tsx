@@ -1,6 +1,5 @@
 import React from "react";
 
-import List from "./List";
 import Help from "./HelpAsync";
 import Hello from "./Hello";
 
@@ -10,7 +9,6 @@ const App: React.FC = () => (
     <Hello />
     <h1>Async component</h1>
     <Help />
-    <List />
   </>
 );
 

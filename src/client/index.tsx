@@ -1,14 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Loadable from "react-loadable";
 
 import App from "../components/App";
 import ClientAppContainer from "./ClientAppContainer";
 
-const root = document.getElementById("root");
+const render = async () => {
+  const root = document.getElementById("root");
 
-ReactDOM.hydrate(
-  <ClientAppContainer>
-    <App />
-  </ClientAppContainer>,
-  root
-);
+  await Loadable.preloadAll();
+
+  ReactDOM.hydrate(
+    <ClientAppContainer>
+      <App />
+    </ClientAppContainer>,
+    root
+  );
+};
+
+render();

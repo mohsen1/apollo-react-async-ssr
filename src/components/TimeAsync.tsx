@@ -1,7 +1,4 @@
 import React from "react";
-import Loadable from "react-loadable";
+import loadable from "@loadable/component";
 
-export default Loadable({
-  loader: () => import(/* webpackChunkName: "Time" */ "./Time"),
-  loading: () => <p>Loading time...</p>
-});
+export default loadable(() => import(/* webpackChunkName: "Time" */ "./Time"));

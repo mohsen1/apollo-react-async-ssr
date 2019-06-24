@@ -2,7 +2,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const nodeExternals = require("webpack-node-externals");
-const { ReactLoadablePlugin } = require("react-loadable/webpack");
+const LoadablePlugin = require("@loadable/webpack-plugin");
 const mkdirp = require("mkdirp");
 const ManifestPlugin = require("webpack-manifest-plugin");
 
@@ -41,7 +41,7 @@ const babelRule = {
         }
       ],
       require.resolve("babel-plugin-styled-components"),
-      require.resolve("react-loadable/babel")
+      require.resolve("@loadable/babel-plugin")
     ],
     presets: [["react-app", { flow: false, typescript: true }]],
     sourceType: "unambiguous"
@@ -84,7 +84,7 @@ const serverConfig = {
   resolve,
   optimization: { minimize: false },
   externals: [
-    /react-loadable\.json$/,
+    /loadable-stats\.json$/,
     /webpack-manifest\.json$/,
     nodeExternals()
   ],
@@ -127,8 +127,9 @@ const clientConfig = {
       "process.env.WEBPACK_TARGET": JSON.stringify("web"),
       "process.env.NODE_ENV": JSON.stringify(process.env.NODE_ENV)
     }),
-    new ReactLoadablePlugin({
-      filename: "./dist/client/react-loadable.json"
+    // @ts-ignore
+    new LoadablePlugin({
+      filename: "loadable-stats.json"
     }),
     new ManifestPlugin({
       fileName: "webpack-manifest.json",

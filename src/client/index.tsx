@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Loadable from "react-loadable";
+import { loadableReady } from "@loadable/component";
 import { Router } from "react-router-dom";
 import { createBrowserHistory } from "history";
 
@@ -10,7 +10,7 @@ import ClientAppContainer from "./ClientAppContainer";
 const render = async () => {
   const root = document.getElementById("root");
 
-  await Loadable.preloadAll();
+  await loadableReady();
 
   ReactDOM.hydrate(
     <ClientAppContainer>

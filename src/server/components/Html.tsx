@@ -1,22 +1,14 @@
 import React from "react";
-import { Bundle } from "react-loadable/webpack";
 import { HelmetData } from "react-helmet";
+import { ChunkExtractor } from "@loadable/server";
 
 const Html: React.FC<{
   styleTags: Array<React.ReactElement<{}>>;
   initialState: object;
-  webpackManifest: object;
-  bundles: Bundle[];
+  chunkExtractor: ChunkExtractor;
   appContents: string;
   helmet: HelmetData;
-}> = ({
-  styleTags,
-  initialState,
-  webpackManifest,
-  bundles,
-  appContents,
-  helmet
-}) => {
+}> = ({ styleTags, initialState, chunkExtractor, appContents, helmet }) => {
   return (
     <html>
       <head {...helmet.htmlAttributes.toComponent()}>
@@ -24,6 +16,8 @@ const Html: React.FC<{
         {helmet.meta.toComponent()}
         {helmet.link.toComponent()}
         {styleTags}
+        {chunkExtractor.getLinkElements()}
+        {chunkExtractor.getStyleElements()}
       </head>
       <body {...helmet.bodyAttributes.toComponent()}>
         <div
@@ -38,14 +32,7 @@ const Html: React.FC<{
             __html: `window.__APOLLO_STATE__=${JSON.stringify(initialState)}`
           }}
         />
-        <script charSet="utf-8" src={webpackManifest["vendors~main.js"]} />
-        <script charSet="utf-8" src={webpackManifest["main.js"]} />
-        {bundles
-          .filter(Boolean)
-          .filter(({ file }) => !file.endsWith(".map"))
-          .map(({ publicPath }) => (
-            <script charSet="utf-8" src={publicPath} key={publicPath} />
-          ))}
+        {chunkExtractor.getScriptElements()}
       </body>
     </html>
   );

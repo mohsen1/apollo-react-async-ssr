@@ -2,11 +2,10 @@ import React from "react";
 import express from "express";
 import ReactDOMServer from "react-dom/server";
 import { ServerStyleSheet } from "styled-components";
-import Loadable from "react-loadable";
 import { getDataFromTree } from "react-apollo";
-import { getBundles } from "react-loadable/webpack";
 import Helmet from "react-helmet";
 import { StaticContext } from "react-router";
+import { ChunkExtractor } from "@loadable/server";
 
 import Html from "./components/Html";
 import ServerAppContents from "./components/ServerAppContents";
@@ -17,10 +16,9 @@ import getApolloClient from "./getApolloClient";
  */
 const render: express.Handler = async (req, res, next) => {
   try {
-    const loadableStats = require("../../dist/client/react-loadable.json");
-    const webpackManifest = require("../../dist/client/webpack-manifest.json");
+    const statsFile = "./dist/client/loadable-stats.json";
+    const chunkExtractor = new ChunkExtractor({ statsFile });
     const sheet = new ServerStyleSheet();
-    const modules = [];
     const apolloClient = getApolloClient();
     const routerContext: StaticContext = {};
 
@@ -28,28 +26,24 @@ const render: express.Handler = async (req, res, next) => {
       <ServerAppContents
         req={req}
         client={apolloClient}
-        reportModules={module => modules.push(module)}
         routerContext={routerContext}
       />
     );
 
-    await Loadable.preloadAll();
     await getDataFromTree(contentsTree);
     const appContents = ReactDOMServer.renderToString(
-      sheet.collectStyles(contentsTree)
+      sheet.collectStyles(chunkExtractor.collectChunks(contentsTree))
     );
     const initialState = apolloClient.extract();
     const styleTags = sheet.getStyleElement();
     const helmet = Helmet.renderStatic();
-    const bundles = getBundles(loadableStats, modules);
 
     const html = ReactDOMServer.renderToString(
       <Html
         {...{
           styleTags,
           initialState,
-          webpackManifest,
-          bundles,
+          chunkExtractor,
           appContents,
           helmet
         }}

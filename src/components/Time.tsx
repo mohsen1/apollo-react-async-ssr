@@ -13,16 +13,6 @@ type State = { time?: string };
 class Time extends React.Component<{}, State> {
   readonly state: State = {};
 
-  componentDidMount() {
-    if (process.env.WEBPACK_TARGET === "web") {
-      setInterval(() => {
-        this.setState({
-          time: moment().format("h:mm:ss a")
-        });
-      }, 1000);
-    }
-  }
-
   render() {
     const { time } = this.state;
     return (

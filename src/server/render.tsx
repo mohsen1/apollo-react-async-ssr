@@ -24,7 +24,7 @@ const render: express.Handler = async (req, res, next) => {
     const apolloClient = getApolloClient();
     const routerContext: StaticContext = {};
 
-    const Contents = () => (
+    const contentsTree = (
       <ServerAppContents
         req={req}
         client={apolloClient}
@@ -34,9 +34,9 @@ const render: express.Handler = async (req, res, next) => {
     );
 
     await Loadable.preloadAll();
-    await getDataFromTree(Contents);
+    await getDataFromTree(contentsTree);
     const appContents = ReactDOMServer.renderToString(
-      sheet.collectStyles(<Contents />)
+      sheet.collectStyles(contentsTree)
     );
     const initialState = apolloClient.extract();
     const styleTags = sheet.getStyleElement();

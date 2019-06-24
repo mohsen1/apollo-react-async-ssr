@@ -15,11 +15,10 @@ const resolvers = {
   }
 };
 
-export const schema = makeExecutableSchema({ typeDefs });
+export const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const server = new ApolloServer({
-  typeDefs,
-  resolvers
+  schema
 });
 
 export default server;

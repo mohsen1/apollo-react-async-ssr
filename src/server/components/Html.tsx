@@ -29,7 +29,7 @@ const Html: React.FC<{
         <script
           charSet="utf-8"
           dangerouslySetInnerHTML={{
-            __html: `window.__APOLLO_STATE__=${JSON.stringify(initialState)}`
+            __html: `window.__APOLLO_STATE__=JSON.parse('${JSON.stringify(initialState)}')`
           }}
         />
         {chunkExtractor.getScriptElements()}

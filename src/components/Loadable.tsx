@@ -1,6 +1,8 @@
 import React from "react";
 import ReactLoadable from "react-loadable";
 import loadable from "@loadable/component";
+import pMinDelay from "p-min-delay";
+import { timeout as timedOut, TimeoutError } from "promise-timeout";
 
 /**
  * Error boundary component
@@ -9,6 +11,7 @@ class ErrorBoundary extends React.Component<
   { onError: (error: Error) => void },
   { error?: Error }
 > {
+  public readonly state: { error?: Error } = {};
   static getDerivedStateFromError(error: Error) {
     return { error };
   }
@@ -28,12 +31,15 @@ class ErrorBoundary extends React.Component<
 
 /**
  * react-loadable compatibility layer
+ *
+ * The options.loader prop is required, the rest is optional
  */
 export default function Loadable<
   Props,
   Exports extends React.FunctionComponent<Props>
 >(
-  options: ReactLoadable.Options<Props, Exports>
+  options: Partial<ReactLoadable.Options<Props, Exports>> &
+    Pick<ReactLoadable.Options<Props, Exports>, "loader">
 ): React.ComponentType<Props> & ReactLoadable.LoadableComponent {
   /**
    * General component for handling errors and loading state
@@ -52,6 +58,8 @@ export default function Loadable<
     Props & ReactLoadable.LoadableComponent,
     { error?: Error }
   > {
+    public readonly state: { error?: Error } = {};
+
     static preload() {
       // not implemented
     }
@@ -66,7 +74,19 @@ export default function Loadable<
 
     render() {
       const { error } = this.state;
+      const { delay = 200, timeout } = options;
       if (error) {
+        if (error instanceof TimeoutError) {
+          return (
+            <Fallback
+              error={undefined}
+              isLoading={false}
+              timedOut={true}
+              pastDelay={false}
+              retry={this.retry}
+            />
+          );
+        }
         return (
           <Fallback
             error={error}
@@ -80,17 +100,23 @@ export default function Loadable<
       return (
         <ErrorBoundary onError={this.onError}>
           {React.createElement(
-            loadable(options.loader, {
-              fallback: (
-                <Fallback
-                  isLoading
-                  timedOut={false}
-                  pastDelay={false}
-                  retry={this.retry}
-                  error={undefined}
-                />
-              )
-            })
+            loadable(
+              timedOut(
+                pMinDelay(options.loader, delay === false ? 0 : delay),
+                timeout === false ? 0 : timeout
+              ),
+              {
+                fallback: (
+                  <Fallback
+                    isLoading
+                    timedOut={false}
+                    pastDelay={false}
+                    retry={this.retry}
+                    error={undefined}
+                  />
+                )
+              }
+            )
           )}
         </ErrorBoundary>
       );

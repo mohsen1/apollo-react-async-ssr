@@ -4,6 +4,9 @@
   "main": "dist/index.js",
   "author": "Mohsen Azimi <me@azimi.me>",
   "license": "MIT",
+  "installConfig": {
+    "pnp": true
+  },
   "scripts": {
     "prestart": "yarn build",
     "start": "NODE_ENV=development concurrently npm:watch-server npm:start-server",

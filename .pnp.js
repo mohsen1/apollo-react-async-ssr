@@ -120,6 +120,10 @@ function $$SETUP_STATE(hydrateRuntimeState) {
                   "npm:7.4.5"
                 ],
                 [
+                  "@berry/pnpify",
+                  "virtual:30b3a22efa1a9354e70cb9c13fd4d1612676202bf17827e920e7994d2eb3d898dafe1b7a52c65b3cc7c1bc6780ed37771c39cdc321a4a2a104d30a639d1ed6bb#npm:0.0.6"
+                ],
+                [
                   "@loadable/babel-plugin",
                   "npm:5.10.0"
                 ],
@@ -270,6 +274,10 @@ function $$SETUP_STATE(hydrateRuntimeState) {
                 [
                   "nodemon",
                   "npm:1.19.1"
+                ],
+                [
+                  "pnp-webpack-plugin",
+                  "npm:1.5.0"
                 ],
                 [
                   "react",
@@ -4853,6 +4861,93 @@ function $$SETUP_STATE(hydrateRuntimeState) {
                 [
                   "to-fast-properties",
                   "npm:2.0.0"
+                ]
+              ]
+            }
+          ]
+        ]
+      ],
+      [
+        "@berry/fslib",
+        [
+          [
+            "npm:0.0.7",
+            {
+              "packageLocation": "./.yarn/cache/@berry-fslib-npm-0.0.7-db1b37782dcb496c5ca269f7bc83a95a664311f7baf5593b41e905fdcd3d506b.zip/node_modules/@berry/fslib/",
+              "packageDependencies": [
+                [
+                  "@berry/fslib",
+                  "npm:0.0.7"
+                ],
+                [
+                  "@berry/libzip",
+                  "npm:0.0.4"
+                ]
+              ]
+            }
+          ]
+        ]
+      ],
+      [
+        "@berry/libzip",
+        [
+          [
+            "npm:0.0.4",
+            {
+              "packageLocation": "./.yarn/cache/@berry-libzip-npm-0.0.4-a459925cfffa3f1a8ba0ef9dd1ae41875aef5bc76e83a8df01cc836c0babef9a.zip/node_modules/@berry/libzip/",
+              "packageDependencies": [
+                [
+                  "@berry/libzip",
+                  "npm:0.0.4"
+                ]
+              ]
+            }
+          ]
+        ]
+      ],
+      [
+        "@berry/pnpify",
+        [
+          [
+            "npm:0.0.6",
+            {
+              "packageLocation": "./.yarn/cache/@berry-pnpify-npm-0.0.6-ef547e07bba3f14170878d44bc18b16f400fa6836140b1c8175ab544e7fdb427.zip/node_modules/@berry/pnpify/",
+              "packageDependencies": [
+                [
+                  "@berry/pnpify",
+                  "npm:0.0.6"
+                ],
+                [
+                  "@berry/fslib",
+                  "npm:0.0.7"
+                ],
+                [
+                  "cross-spawn",
+                  "npm:6.0.5"
+                ]
+              ]
+            }
+          ],
+          [
+            "virtual:30b3a22efa1a9354e70cb9c13fd4d1612676202bf17827e920e7994d2eb3d898dafe1b7a52c65b3cc7c1bc6780ed37771c39cdc321a4a2a104d30a639d1ed6bb#npm:0.0.6",
+            {
+              "packageLocation": "./.yarn/virtual/@berry-pnpify-virtual-91e4cda1983066c7abced1f8e17d41bf20fbd9881ce45a14f39acfba2f582ecc/node_modules/@berry/pnpify/",
+              "packageDependencies": [
+                [
+                  "@berry/pnpify",
+                  "virtual:30b3a22efa1a9354e70cb9c13fd4d1612676202bf17827e920e7994d2eb3d898dafe1b7a52c65b3cc7c1bc6780ed37771c39cdc321a4a2a104d30a639d1ed6bb#npm:0.0.6"
+                ],
+                [
+                  "@berry/fslib",
+                  "npm:0.0.7"
+                ],
+                [
+                  "cross-spawn",
+                  "npm:6.0.5"
+                ],
+                [
+                  "typescript",
+                  "npm:3.5.2"
                 ]
               ]
             }
@@ -13604,6 +13699,10 @@ function $$SETUP_STATE(hydrateRuntimeState) {
                   "npm:7.4.5"
                 ],
                 [
+                  "@berry/pnpify",
+                  "virtual:30b3a22efa1a9354e70cb9c13fd4d1612676202bf17827e920e7994d2eb3d898dafe1b7a52c65b3cc7c1bc6780ed37771c39cdc321a4a2a104d30a639d1ed6bb#npm:0.0.6"
+                ],
+                [
                   "@loadable/babel-plugin",
                   "npm:5.10.0"
                 ],
@@ -13754,6 +13853,10 @@ function $$SETUP_STATE(hydrateRuntimeState) {
                 [
                   "nodemon",
                   "npm:1.19.1"
+                ],
+                [
+                  "pnp-webpack-plugin",
+                  "npm:1.5.0"
                 ],
                 [
                   "react",
@@ -21281,6 +21384,27 @@ function $$SETUP_STATE(hydrateRuntimeState) {
         ]
       ],
       [
+        "pnp-webpack-plugin",
+        [
+          [
+            "npm:1.5.0",
+            {
+              "packageLocation": "./.yarn/cache/pnp-webpack-plugin-npm-1.5.0-b73cbddb67de30be4d9017fcda27dfe7b38cb82eb90bcfcd3f8739c7c80e33e4.zip/node_modules/pnp-webpack-plugin/",
+              "packageDependencies": [
+                [
+                  "pnp-webpack-plugin",
+                  "npm:1.5.0"
+                ],
+                [
+                  "ts-pnp",
+                  "virtual:b73cbddb67de30be4d9017fcda27dfe7b38cb82eb90bcfcd3f8739c7c80e33e42ab7b5fe338b3038c2f66b0da535ecd837b463c1b7dda147bfed23317538f430#npm:1.1.2"
+                ]
+              ]
+            }
+          ]
+        ]
+      ],
+      [
         "posix-character-classes",
         [
           [
@@ -25591,6 +25715,35 @@ function $$SETUP_STATE(hydrateRuntimeState) {
                 [
                   "tslib",
                   "npm:1.10.0"
+                ]
+              ]
+            }
+          ]
+        ]
+      ],
+      [
+        "ts-pnp",
+        [
+          [
+            "npm:1.1.2",
+            {
+              "packageLocation": "./.yarn/cache/ts-pnp-npm-1.1.2-908b85f2f22bd47799f853b00f82cb99992ebdd73f40cea9c1a4eff02ae9ea3e.zip/node_modules/ts-pnp/",
+              "packageDependencies": [
+                [
+                  "ts-pnp",
+                  "npm:1.1.2"
+                ]
+              ]
+            }
+          ],
+          [
+            "virtual:b73cbddb67de30be4d9017fcda27dfe7b38cb82eb90bcfcd3f8739c7c80e33e42ab7b5fe338b3038c2f66b0da535ecd837b463c1b7dda147bfed23317538f430#npm:1.1.2",
+            {
+              "packageLocation": "./.yarn/virtual/ts-pnp-virtual-e26bc8d07f97528d6d994a581323e2c3b3d94184e0cf48ac1575c22bf2eaf439/node_modules/ts-pnp/",
+              "packageDependencies": [
+                [
+                  "ts-pnp",
+                  "virtual:b73cbddb67de30be4d9017fcda27dfe7b38cb82eb90bcfcd3f8739c7c80e33e42ab7b5fe338b3038c2f66b0da535ecd837b463c1b7dda147bfed23317538f430#npm:1.1.2"
                 ]
               ]
             }

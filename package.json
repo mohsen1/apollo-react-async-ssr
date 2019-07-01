@@ -14,13 +14,14 @@
     "start-server": "nodemon --watch dist --ignore dist/client --exec 'node --no-warnings dist/server/index.js'",
     "prebuild": "rimraf dist",
     "build": "NODE_ENV=development webpack",
-    "test": "tsc && yarn run build",
+    "test": "yarn pnpify tsc && yarn run build",
     "prebuild:prod": "rimraf dist",
     "build:prod": "NODE_ENV=production webpack",
     "start:prod": "NODE_ENV=production node --no-warnings ./dist/server/index.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",
+    "@berry/pnpify": "^0.0.6",
     "@loadable/babel-plugin": "^5.10.0",
     "@loadable/component": "^5.10.1",
     "@loadable/server": "^5.9.0",
@@ -59,6 +60,7 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.24.0",
     "nodemon": "^1.19.1",
+    "pnp-webpack-plugin": "^1.5.0",
     "react": "^16.8.6",
     "react-apollo": "^2.5.8",
     "react-dom": "^16.8.6",

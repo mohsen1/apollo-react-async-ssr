@@ -1129,6 +1129,39 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@berry/fslib@npm:0.0.7":
+  version: 0.0.7
+  resolution: "@berry/fslib@npm:0.0.7"
+  dependencies:
+    "@berry/libzip": "npm:0.0.4"
+  checksum: 7fac3ec5376d7c253fe154f2c0d495fed8b9fc2ecb201b21ee1c0486ba90e9a2f7b56fb15da20bf8449542e10e6b78d809279b4997766dc22a25260e92ab5810
+  languageName: node
+  linkType: hard
+
+"@berry/libzip@npm:0.0.4":
+  version: 0.0.4
+  resolution: "@berry/libzip@npm:0.0.4"
+  checksum: 044ff6935cfff2c9abfff07045032e5390c322cf26b0f277f4ae5ffb54d389712f5ec1d602c17faaf73d8a712ca780483b81c83fc69b3c41d18146dcf44b81ea
+  languageName: node
+  linkType: hard
+
+"@berry/pnpify@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@berry/pnpify@npm:0.0.6"
+  dependencies:
+    "@berry/fslib": "npm:0.0.7"
+    cross-spawn: "npm:^6.0.5"
+  peerDependencies:
+    typescript: "*"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  bin:
+    pnpify: ./lib/bin.js
+  checksum: 7bb501132f017bc2a253acae5c0f3cb7183a7658cc16370c0dc55821157782c020b0b334af0b933bc4c14505facad10ad67f6291a5142a626f142aab09d71744
+  languageName: node
+  linkType: hard
+
 "@emotion/is-prop-valid@npm:^0.8.1":
   version: 0.8.2
   resolution: "@emotion/is-prop-valid@npm:0.8.2"
@@ -3274,7 +3307,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-spawn@npm:6.0.5, cross-spawn@npm:^6.0.0":
+"cross-spawn@npm:6.0.5, cross-spawn@npm:^6.0.0, cross-spawn@npm:^6.0.5":
   version: 6.0.5
   resolution: "cross-spawn@npm:6.0.5"
   dependencies:
@@ -3694,6 +3727,7 @@ __metadata:
   resolution: "empty-project@workspace:."
   dependencies:
     "@babel/core": "npm:^7.4.5"
+    "@berry/pnpify": "npm:^0.0.6"
     "@loadable/babel-plugin": "npm:^5.10.0"
     "@loadable/component": "npm:^5.10.1"
     "@loadable/server": "npm:^5.9.0"
@@ -3732,6 +3766,7 @@ __metadata:
     mkdirp: "npm:^0.5.1"
     moment: "npm:^2.24.0"
     nodemon: "npm:^1.19.1"
+    pnp-webpack-plugin: "npm:^1.5.0"
     react: "npm:^16.8.6"
     react-apollo: "npm:^2.5.8"
     react-dom: "npm:^16.8.6"
@@ -6438,6 +6473,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"pnp-webpack-plugin@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "pnp-webpack-plugin@npm:1.5.0"
+  dependencies:
+    ts-pnp: "npm:^1.1.2"
+  checksum: 3c79a771d3f15834552b299e58a8d0c67cb30b0b4b675ce45aaef0dd528ada5e68d06a8ec8d3cf67f320cbd1ee7d2c712ea928de71f0ab4128d35d0494f19218
+  languageName: node
+  linkType: hard
+
 "posix-character-classes@npm:^0.1.0":
   version: 0.1.1
   resolution: "posix-character-classes@npm:0.1.1"
@@ -7963,6 +8007,18 @@ __metadata:
   dependencies:
     tslib: "npm:^1.9.3"
   checksum: 1888bbe50591a858901b59543c4733d8f23cafc203145cb9e0e841e9e6846f6ac425a1896e8bfc8477b9dfc2476e4f1e399f55b19832de78c2b9b334f2541467
+  languageName: node
+  linkType: hard
+
+"ts-pnp@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "ts-pnp@npm:1.1.2"
+  peerDependencies:
+    typescript: "*"
+  peerDependenciesMeta:
+    typescript:
+      optional: true
+  checksum: ff4d6b1f169001c079ccd753dd339d2946614af99c9a6d3ce07ce82c7ee705e1c63fb242a13b10e13931dea3754a43d8b15be546d00b98fbcf1d8c2ccf7036a9
   languageName: node
   linkType: hard
 

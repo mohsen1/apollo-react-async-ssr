@@ -5,6 +5,7 @@ const nodeExternals = require("webpack-node-externals");
 const LoadablePlugin = require("@loadable/webpack-plugin");
 const mkdirp = require("mkdirp");
 const ManifestPlugin = require("webpack-manifest-plugin");
+const PnpWebpackPlugin = require("pnp-webpack-plugin");
 
 // ReactLoadablePlugin can't make deep directories
 mkdirp.sync("./dist/client");
@@ -68,7 +69,22 @@ const clientOptimization = {
 /** @type {import("webpack").Resolve} */
 const resolve = {
   modules: ["node_modules", path.resolve("src")],
-  extensions: [".js", ".mjs", ".ts", ".jsx", ".tsx", ".css", ".gql", ".graphql"]
+  extensions: [
+    ".js",
+    ".mjs",
+    ".ts",
+    ".jsx",
+    ".tsx",
+    ".css",
+    ".gql",
+    ".graphql"
+  ],
+  plugins: [PnpWebpackPlugin]
+};
+
+/** @type {import("webpack").ResolveLoader} */
+const resolveLoader = {
+  plugins: [PnpWebpackPlugin.moduleLoader(module)]
 };
 
 /** @type {import("webpack").Stats.ToStringOptionsObject} */
@@ -82,6 +98,7 @@ const serverConfig = {
   devtool: "source-map",
   stats,
   resolve,
+  resolveLoader,
   optimization: { minimize: false },
   externals: [
     /loadable-stats\.json$/,
@@ -112,6 +129,7 @@ const clientConfig = {
   target: "web",
   devtool: "source-map",
   resolve,
+  resolveLoader,
   optimization: clientOptimization,
   entry: "./src/client/index.tsx",
   output: {

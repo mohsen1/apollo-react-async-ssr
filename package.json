@@ -14,6 +14,7 @@
     "start-server": "nodemon --watch dist --ignore dist/client --exec 'node --no-warnings dist/server/index.js'",
     "prebuild": "rimraf dist",
     "build": "NODE_ENV=development webpack",
+    "test": "tsc && yarn run build",
     "prebuild:prod": "rimraf dist",
     "build:prod": "NODE_ENV=production webpack",
     "start:prod": "NODE_ENV=production node --no-warnings ./dist/server/index.js"

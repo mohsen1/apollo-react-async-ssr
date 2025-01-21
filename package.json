@@ -40,7 +40,7 @@
     "apollo-link-http": "^1.5.15",
     "apollo-link-schema": "^1.2.3",
     "apollo-server": "^2.6.4",
-    "apollo-server-express": "^2.6.4",
+    "apollo-server-express": "^2.26.2",
     "babel-loader": "^8.0.6",
     "babel-plugin-named-asset-import": "^0.3.2",
     "babel-plugin-styled-components": "^1.10.1",
